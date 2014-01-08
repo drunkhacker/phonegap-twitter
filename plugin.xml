@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="me.drunkhacker.phonegap.twitter"
+        version="3.6">
+
+  <name>Twitter</name>
+
+  <description>
+  </description>
+
+  <license>MIT</license>
+
+  <engines>
+    <engine name="cordova" version=">=3.0.0"/>
+  </engines>
+
+  <js-module src="www/phonegap-twitter.js" name="PhonegapTwitter">
+    <clobbers target="window.plugins.twitter" />
+  </js-module>
+
+  <!-- ios -->
+  <platform name="ios">
+
+    <config-file target="config.xml" parent="/*">
+      <feature name="PhonegapTwitter">
+        <param name="ios-package" value="PhonegapTwitter"/>
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/PhonegapTwitter.h"/>
+    <source-file src="src/ios/PhonegapTwitter.m"/>
+
+    <header-file src="src/ios/STTwitter.h"/>
+    <header-file src="src/ios/STTwitterAPI.h"/>
+    <header-file src="src/ios/STTwitterHTML.h"/>
+
+    <framework src="Social.framework" />
+    <source-file src="src/ios/frameworks/libSTTwitter.a" framework="true" />
+
+    <config-file target="*-Info.plist" parent="TwitterConsumerKey">
+      <string>$TW_CONSUMER_KEY</string>
+    </config-file>
+    
+    <config-file target="*-Info.plist" parent="TwitterConsumerSecret">
+      <string>$TW_CONSUMER_SECRET</string>
+    </config-file>
+  </platform>
+
+  <!-- android -->
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="SocialSharing">
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+      </feature>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    </config-file>
+
+    <source-file src="src/android/nl/xservices/plugins/SocialSharing.java" target-dir="src/nl/xservices/plugins"/>
+  </platform>
+
+</plugin>
+
